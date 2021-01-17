@@ -3,6 +3,7 @@ class FollowersController < ApplicationController
   def index
     username = params[:username]
     rest_url = "http://api.github.com/users/#{username}/followers?per_page=100"
+    graphql_url = "http://api.github.com/graphql"
     @random_choice = ['rest','graphql'].sample
     if @random_choice == 'rest'
       starting_time = Time.now
@@ -19,7 +20,7 @@ class FollowersController < ApplicationController
   private
 
   def get_followers_rest(url)
-    response = HTTParty.get(url, headers: { 'Accept' => 'application/vnd.github.v3+json', 'Authorization' => 'Bearer b63cc7693e38dc1ed376ff4561ae3adaac49e9cf'})
+    response = HTTParty.get(url, headers: { 'Accept' => 'application/vnd.github.v3+json', 'Authorization' => "Bearer #{ENV['GITHUB_API_TOKEN']}"})
     @followers = @followers ? @followers + JSON.parse(response.body) : JSON.parse(response.body)
     if response.headers[:link]&.include?('rel="next"')
       next_page_url = response.headers[:link].match(/.*<(\S*)>; rel="next"/)[1]
