@@ -37,7 +37,6 @@ class FollowersController < ApplicationController
 
   def get_followers_rest(url)
     response = HTTParty.get(url, headers: { 'Accept' => 'application/vnd.github.v3+json', 'Authorization' => "Bearer #{ENV['GITHUB_API_TOKEN']}"})
-    p JSON.parse(response.body)
     @followers = @followers ? @followers + JSON.parse(response.body).map{ |f| f.slice('login', 'html_url', 'avatar_url')} : JSON.parse(response.body).map{ |f| f.slice('login', 'html_url', 'avatar_url')}
     if response.headers[:link]&.include?('rel="next"')
       next_page_url = response.headers[:link].match(/.*<(\S*)>; rel="next"/)[1]
