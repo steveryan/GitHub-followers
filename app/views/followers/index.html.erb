@@ -1,0 +1,13 @@
+<h1><%= params[:username] %> has <%= @followers.length %> followers</h1>
+<p>This information was pulled using GitHub's <%= @random_choice == 'rest' ? 'REST' : 'GraphQL' %> api.</p>
+<p>This request took <%= @total_time %> seconds</p>
+<div class="flex-div">
+  <% @followers.each do |follower| %>
+    <div class="follower-div">
+      <a href=<%= follower['html_url'] %>>
+        <img src=<%= follower['avatar_url'] %>width="150px" height="150px" />
+        <p><%= follower['login'] %></p>
+      </a>
+    </div>
+  <% end %>
+</div>

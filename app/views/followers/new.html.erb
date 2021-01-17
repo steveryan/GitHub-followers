@@ -1,0 +1,7 @@
+<h1>GitHub Followers</h1>
+<p>Enter a GitHub username to see who's following them.</p>
+<%= form_with url: "/followers/", method: :get, local: true do |form| %>
+  <%= form.label :username, "Username:" %>
+  <%= form.text_field :username %>
+  <%= form.submit "Show me" %>
+<% end %>
