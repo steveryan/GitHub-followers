@@ -4,8 +4,8 @@
 <div class="flex-div">
   <% @followers.each do |follower| %>
     <div class="follower-div">
-      <a href=<%= follower['html_url'] %>>
-        <img src=<%= follower['avatar_url'] %>width="150px" height="150px" />
+      <a href=<%= follower['html_url'] || follower['url'] %>>
+        <img src=<%= follower['avatar_url'] || follower['avatarUrl'] %>width="150px" height="150px" />
         <p><%= follower['login'] %></p>
       </a>
     </div>
